@@ -21,4 +21,8 @@ export class AdminsRepository {
   patchAndFetchById(id: number, payload: UpdateAdminDto): Promise<Admin> {
     return AdminModel.query().patchAndFetchById(id, payload);
   }
+
+  deleteById(id: number): Promise<number> {
+    return AdminModel.query().deleteById(id);
+  }
 }

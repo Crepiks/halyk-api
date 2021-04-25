@@ -34,7 +34,10 @@ export class AdminsService {
     return admin;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} admin`;
+  async remove(id: number): Promise<void> {
+    const rowsDeleted = await this.adminsRepository.deleteById(id);
+    if (!rowsDeleted) {
+      throw new NotFoundException('Admin not found');
+    }
   }
 }
