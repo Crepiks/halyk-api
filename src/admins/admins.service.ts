@@ -16,7 +16,7 @@ export class AdminsService {
     return this.adminsRepository.insertAndFetch(payload);
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Admin> {
     const admin = await this.adminsRepository.findById(id);
     if (!admin) {
       throw new NotFoundException('Admin not found');
@@ -25,8 +25,13 @@ export class AdminsService {
     return admin;
   }
 
-  update(id: number, updateAdminDto: UpdateAdminDto) {
-    return `This action updates a #${id} admin`;
+  async update(id: number, payload: UpdateAdminDto): Promise<Admin> {
+    const admin = await this.adminsRepository.patchAndFetchById(id, payload);
+    if (!admin) {
+      throw new NotFoundException('Admin not found');
+    }
+
+    return admin;
   }
 
   remove(id: number) {
