@@ -12,4 +12,8 @@ export class AdminsRepository {
   insertAndFetch(payload: CreateAdminDto): Promise<Admin> {
     return AdminModel.query().insertAndFetch(payload);
   }
+
+  findById(id: number): Promise<Admin> {
+    return AdminModel.query().findById(id);
+  }
 }

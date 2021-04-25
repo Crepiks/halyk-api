@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Admin } from 'src/entities/admin.entity';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
@@ -16,8 +16,13 @@ export class AdminsService {
     return this.adminsRepository.insertAndFetch(payload);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} admin`;
+  async findOne(id: number) {
+    const admin = await this.adminsRepository.findById(id);
+    if (!admin) {
+      throw new NotFoundException('Admin not found');
+    }
+
+    return admin;
   }
 
   update(id: number, updateAdminDto: UpdateAdminDto) {
