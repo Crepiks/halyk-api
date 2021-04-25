@@ -16,6 +16,11 @@ export async function up(knex: Knex): Promise<void> {
     table.text('helpAbsenceReason').nullable();
     table.string('problems').nullable();
     table.boolean('canLearn').nullable().defaultTo(false);
+    table.integer('volunteerId').unsigned().nullable();
+    table
+      .foreign('volunteerId')
+      .references('volunteers.id')
+      .onDelete('SET NULL');
     table.timestamp('createdAt').defaultTo(knex.fn.now());
   });
 }
