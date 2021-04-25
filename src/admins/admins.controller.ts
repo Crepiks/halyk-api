@@ -23,8 +23,10 @@ export class AdminsController {
   }
 
   @Post()
-  create(@Body() createAdminDto: CreateAdminDto) {
-    return this.adminsService.create(createAdminDto);
+  async create(@Body() createAdminDto: CreateAdminDto) {
+    return {
+      admin: await this.adminsService.create(createAdminDto),
+    };
   }
 
   @Get(':id')

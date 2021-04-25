@@ -12,8 +12,8 @@ export class AdminsService {
     return this.adminsRepository.findAll();
   }
 
-  create(createAdminDto: CreateAdminDto) {
-    return 'This action adds a new admin';
+  create(payload: CreateAdminDto): Promise<Admin> {
+    return this.adminsRepository.insertAndFetch(payload);
   }
 
   findOne(id: number) {
